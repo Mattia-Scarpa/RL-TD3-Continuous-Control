@@ -92,7 +92,7 @@ def test(env, brain_name, agent, n_episodes=100, max_t=1000, num_agents=1):
     
         for i_episode in range(1, n_episodes+1):
     
-            state = env.reset(train_mode=False)[brain_name].vector_observations[0]
+            state = env.reset(train_mode=True)[brain_name].vector_observations[0]
             score = 0
     
             for t in range(max_t):
@@ -147,7 +147,16 @@ def main():
     scores = td3(env, brain_name, agent)
 
     print('Training finished.')
-    print('Total train score (averaged over agents) for last 100 episodes: {}'.format(np.mean(scores)))
+
+    # plot the scores
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    plt.plot(np.arange(len(scores)), scores, color='blue')
+    plt.ylabel('Score')
+    plt.xlabel('Episode #')
+    plt.title('Training average scores over 100 episodes')
+    plt.savefig('training_scores.png')
+    
 
     # load the weights from file
     agent.actor_local.load_state_dict(torch.load('checkpoint_actor.pth'))
@@ -164,7 +173,8 @@ def main():
     plt.plot(np.arange(len(scores)), scores, color='blue')
     plt.ylabel('Score')
     plt.xlabel('Episode #')
-    plt.show()
+    plt.title('Test scores per episode')
+    plt.savefig('test_scores.png')
     
     # close the environment
     env.close()

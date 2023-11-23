@@ -61,7 +61,7 @@ class TD3Agent:
         self.t_step = 0
 
         # Memory
-        self.memory = PrioritizedReplayBuffer(seed=seed)
+        self.memory = ReplayBuffer(seed=seed)
         # NOTE: Prioritized Experience Replay
 
         # Actor Network (w/ Target Network)
