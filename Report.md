@@ -12,11 +12,17 @@ The environment will be considered solved if the agent will collect at least an 
 In our analysis is mandatory to recall that the choice of our algorithm, namely Twin Delayed DDPG, is, as the name suggest an evolution of the DDPG algorithm. The latter suffers of overestimation issues for the **Q**-value function, and consequently our algorithm will follow the same fate.
 
 To overcome this issues some trick has been adopted.
-Before explininf them however it is interesting to explain a bit more in details the learning algorithm.
+While explaining them however it is interesting also to explain a bit more in details the learning algorithm.
 
 ### Learning Algorithm
 Twin Delayed Deep Deterministic Policy Gradient (TD3) is a RL algorithm for continuous control algorithm. It aims to improve the classical DDPG algorithm with 3 main variations:
 
-1. Double **Q**-network: To improve action value overestimation the critic model exploit 2 different network and use the minimun value to compute the Q value target: 
+1. Double **Q**-network: To improve action value overestimation the critic model exploit 2 different network and use the minimun value to compute the Q value target: $Q_{target} = min_{i=1,2}Q_{\theta_i'}(s', clip(\pi_{\pi'}(s')+\epsilon), a_{low}, a_{high})$ where $\epsilon$ is an additive noise used to induce exploration of the action.
 
-$Q_{target} = min_{i=1,2}Q_{\theta_i'}(s', clip(\pi_{\pi'}(s')+\epsilon), a_{low}, a_{high})$
+2. In order to avoid the policy variance the actor training is delayed with respect the critic. This allow to collect a bit more experience under the same policy helping to reduce the variance.
+
+3. Exploration Noise: As said in point $1.$ at the policy target an additive noise is added. This noise, clipped according to action range allowed, help the network to not get stucked in earlier suboptimal policy.
+
+The weigths update is based on the loss computation among the current Q estimated and the Q target, updating consequently the network according to the gradient descent:
+
+$\theta_i \leftarrow$
