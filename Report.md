@@ -25,4 +25,4 @@ Twin Delayed Deep Deterministic Policy Gradient (TD3) is a RL algorithm for cont
 
 The weigths update is based on the loss computation among the current Q estimated and the Q target, updating consequently the network according to the gradient descent:
 
-$\theta_i \leftarrow$
+$\theta_i \leftarrow \theta_i - \alpha \Tilde$ 
