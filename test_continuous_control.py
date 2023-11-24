@@ -20,20 +20,15 @@ from agent import TD3Agent
 # parameters
 PRINT_EVERY = 10
 MAX_T = 1000
-N_EPISODES = 1000
-
-EPS_START = 1.0
-EPS_END = 0.01
-EPS_DECAY = 0.999
+N_EPISODES = 252
 
 
 # TD3 function
 
-def td3(env, brain_name, agent, n_episodes=N_EPISODES, max_t=None, print_every=PRINT_EVERY, num_agents=1, eps_start=EPS_START, eps_end=EPS_END, eps_decay=EPS_DECAY):
+def td3(env, brain_name, agent, n_episodes=N_EPISODES, max_t=None, print_every=PRINT_EVERY, num_agents=1):
 
     scores = []
     scores_window = deque(maxlen=print_every)
-    eps = eps_start
     best_score = 30.
 
     for i_episode in range(1, n_episodes+1):
@@ -46,7 +41,7 @@ def td3(env, brain_name, agent, n_episodes=N_EPISODES, max_t=None, print_every=P
             max_t = 1e7
         
         for t in range(int(max_t)):
-            action = agent.act(state, eps)
+            action = agent.act(state)
 
             env_info = env.step(action)[brain_name]
 
@@ -71,7 +66,6 @@ def td3(env, brain_name, agent, n_episodes=N_EPISODES, max_t=None, print_every=P
 
         scores_window.append(score)
         scores.append(score)
-        eps = max(eps_end, eps_decay*eps)
 
         if i_episode % print_every == 0:
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(i_episode, np.mean(scores_window)))
@@ -154,7 +148,7 @@ def main():
     plt.plot(np.arange(len(scores)), scores, color='blue')
     plt.ylabel('Score')
     plt.xlabel('Episode #')
-    plt.title('Training average scores over 100 episodes')
+    plt.title('Training scores over 100 episodes')
     plt.savefig('training_scores.png')
     
 
