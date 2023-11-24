@@ -50,7 +50,7 @@ Here it has showed a plot with the score per episode among the first 250 trials,
 ![Reward per Episode Plot - Training](training_scores.png)
 ![Reward per Episode Plot - Validation](test_scores.png)
 
-In conclusion we tested the trained agent and observed that on average it was able to obtain an average reward of $xx.xx$!
+In conclusion we tested the trained agent and observed that on average it was able to obtain an average reward of $34.50$!
 
 ### Future Implementation
 
