@@ -25,4 +25,34 @@ Twin Delayed Deep Deterministic Policy Gradient (TD3) is a RL algorithm for cont
 
 The weigths update is based on the loss computation among the current Q estimated and the Q target, updating consequently the network according to the gradient descent:
 
-$\theta_i \leftarrow \theta_i - \alpha \nabla_{\delta_i}(1/N)\sum(Q_{\theta_i}(s, a)-Q_{target})^2$ 
+$\theta_i \leftarrow \theta_i - \alpha \nabla_{\theta_i}(1/N)\sum(Q_{\theta_i}(s, a)-Q_{target})^2$ 
+
+On the other hand the policy is updated less frequenlty under the law:
+
+$\phi \leftarrow \phi + \beta \nabla_{\phi}(1/N)\sum(Q_{\theta_1}(s, \pi_phi(s)))$.
+
+Clearly $\alpha$, and $\beta$ are the respective learning rate and $N$ is the batch size.
+
+In terms of implementation, TD3 requires the training of three neural networks: two Q networks (critic) and one policy network (actor). The Q networks are updated to minimize the difference between the current Q value and the target Q value, which is computed using the target policy and the minimum of the two target Q networks. The policy network is updated to maximize the Q value produced by one of the Q networks. The target networks are copies of the main networks but are updated with a much smaller step to ensure that the targets change slowly, enhancing the stability of learning.
+
+#### Other Hyperparameters
+
+1. **Double Q-Network Coefficent**: As previously state $\tau$ is the responsible on tuning the DDQN approach. For this experiment we set the values fixed to $\tau=5 \times 10^{-3}$.
+2. **Learning Rate**: In the TD3's neurals networks, the learning rate (LR) determines the step size taken towards minimizing the losses during each update. It has been chosen fixed to $1 \times 10^{-3}$ for this training process, however it might be interesting to implement a scheduler to see how it will change the training in long horizon.
+3. **Discount Factor**: The discount factor $ \gamma $, set at 0.95, influences how the DQN values future rewards in comparison to immediate ones. A value closer to 1 means the agent gives substantial importance to long-term rewards, ensuring that it's motivated to make decisions beneficial in the long run. This fit our case since the majority of the action are not supposed to return a positive reward or just only a reward different from 0.
+
+### Observed Result
+
+TD3 algorithm seems to fit perfectly the scope of this task. It was indeed required to get an average score of at least 30 over the last 100 episode. The algorithm reach that goal in just 113 episode, meaning that it was perfectly able to understand the environment and to find an effective policy.
+
+Here it has showed a plot with the score per episode among the first 250 trials, and the score per episode for 100 validation test. We opted to stop the training after only 250 step due to unrecognized environment crash at random point (different episode without a pattern).
+
+In conclusion we tested the trained agent and observed that on average it was able to obtain an average reward of $xx.xx$!
+
+### Future Implementation
+
+As a future work it is strongly suggested to try to implement the learning algorithm for multiple agent working in parallel. This, hopefully, should to improve the convergence speed of the agent and also the robustness.
+
+Since we have implemented a simple experience replay it also might be interesting to introduce a prioritized ER. This should also help to reach a faster convergence and to focus more onimproving worst action. A skeleton of the buffer has already been implemented, however some investigation are required likely in the priority function.
+
+Another interesting step further is to explore multi step bootstrap as TD-N [arXiv](https://arxiv.org/abs/1611.02247), [arXiv](https://arxiv.org/abs/1602.01783).
