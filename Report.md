@@ -47,6 +47,9 @@ TD3 algorithm seems to fit perfectly the scope of this task. It was indeed requi
 
 Here it has showed a plot with the score per episode among the first 250 trials, and the score per episode for 100 validation test. We opted to stop the training after only 250 step due to unrecognized environment crash at random point (different episode without a pattern).
 
+![Reward per Episode Plot - Training](training_scores.png)
+![Reward per Episode Plot - Validation](test_scores.png)
+
 In conclusion we tested the trained agent and observed that on average it was able to obtain an average reward of $xx.xx$!
 
 ### Future Implementation

@@ -138,7 +138,7 @@ def main():
     # initialize agent
     agent = TD3Agent(state_size=state_size, action_size=action_size, a_max=1, seed=0)
 
-    scores = td3(env, brain_name, agent)
+    '''scores = td3(env, brain_name, agent)
 
     print('Training finished.')
 
@@ -149,7 +149,7 @@ def main():
     plt.ylabel('Score')
     plt.xlabel('Episode #')
     plt.title('Training scores over 100 episodes')
-    plt.savefig('training_scores.png')
+    plt.savefig('training_scores.png')'''
     
 
     # load the weights from file
