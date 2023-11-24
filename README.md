@@ -32,4 +32,3 @@ The project is built on:
 * checkpoint_actor.pth -> the weights of the best policy model found during training
 * checkpoint_critic.pth -> the weights of the best action-value function found during training
 * report.md -> Project report of the overall implementation
-* arm_control.mp4 -> The video of the final trained model for some episode
